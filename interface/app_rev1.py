@@ -46,7 +46,6 @@ mesh = np.meshgrid(lat, long)
 positions = list(zip(*(x.flat for x in mesh))) #list of tuples
 geo_grid(positions)
 geojson = gpd.read_file('geo_data.json')
-print(geojson.head())
 m = folium.Map(satbaev_gps, zoom_start=20)
 geo_j = folium.GeoJson(data=geojson, style_function=lambda x: {'fillColor': 'orange'})
 geo_j.add_to(m)       
