@@ -6,8 +6,8 @@ import geopandas as gpd
 m_to_lat = .001/111                #based on rule of thumb that 1 degree of corresponds to 111km
 m_to_long = .001/73                #1 degree of longitude corresponds to 73km
 satbaev_gps = [43.23720, 76.93171] #latitude, longitude
-grid_size = 5                      #square grid length and width **NEED TO IMPLEMENT**
-distance = 30                      #distance between data points in meters
+grid_size = 6                      #square grid length and width **NEED TO IMPLEMENT**
+distance = 60                      #distance between data points in meters
 
 def geo_grid(points):
     '''
@@ -40,8 +40,8 @@ def geo_grid(points):
         json.dump(grid, file_obj, indent=4)
     return None
 
-lat = np.linspace(-10,10, num = 3)*m_to_lat + satbaev_gps[0]
-long = np.linspace(-10,10, num = 3)*m_to_long +satbaev_gps[1]
+lat = np.linspace(-distance*(grid_size-1)/2, distance*(grid_size-1)/2, num = grid_size)*m_to_lat + satbaev_gps[0]
+long = np.linspace(-distance*(grid_size-1)/2,distance*(grid_size-1)/2, num = grid_size)*m_to_long +satbaev_gps[1]
 mesh = np.meshgrid(lat, long)
 positions = list(zip(*(x.flat for x in mesh))) #list of tuples
 geo_grid(positions)
